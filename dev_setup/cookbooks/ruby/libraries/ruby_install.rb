@@ -3,6 +3,7 @@ module RubyInstall
     rubygems_version = node[:rubygems][:version]
     bundler_version = node[:rubygems][:bundler][:version]
     rake_version = node[:rubygems][:rake][:version]
+    ruby_version_number = ruby_version.split("-")[0]
 
     %w[ build-essential libssl-dev zlib1g-dev libreadline6-dev libxml2-dev].each do |pkg|
       package pkg
@@ -41,6 +42,7 @@ module RubyInstall
       make
       make install
       EOH
+      not_if "#{ruby_path}/bin/ruby -v | grep #{ruby_version_number}"
     end
 
     rubygem_tarball_path = File.join(node[:deployment][:setup_cache], "rubygems-#{rubygems_version}.tgz")
@@ -58,6 +60,7 @@ module RubyInstall
       cd rubygems-#{rubygems_version}
       #{File.join(ruby_path, "bin", "ruby")} setup.rb
       EOH
+      not_if "#{ruby_path}/bin/gem -v | grep #{rubygems_version}"
     end
 
     gem_package "bundler" do
