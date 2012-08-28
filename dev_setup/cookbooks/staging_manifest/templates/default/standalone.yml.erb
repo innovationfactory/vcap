@@ -1,12 +1,18 @@
 ---
 name: "standalone"
 runtimes:
+<% 
+  enabled_frameworks = node['staging_manifest'].to_hash.map{|k,v| v != 'disabled' ? k : nil } 
+%>
+<% unless (enabled_frameworks & %w(django wsgi)).any? %>
   - "python2":
       version: "2.6.5"
       description: <%= "Python #{node[:python2][:version]}" %>
       executable: python
       environment:
         path: /usr/bin:$PATH
+<% end %>
+<% unless (enabled_frameworks & %w(grails lift spring java_web play)).any? %>
   - "java":
       description: "Java 6"
       version: "1.6"
@@ -19,6 +25,8 @@ runtimes:
       version: "1.7"
       executable: "java"
 <% end %>
+<% end %>
+<% unless node[:staging_manifest][:node] == :disabled %>
   - node:
       version: '0.4.12'
       description: 'Node.js'
@@ -37,18 +45,24 @@ runtimes:
       executable: <%= File.join(node[:node08][:path], "bin", "node") %>
       environment:
         path: <%= File.join(node[:node08][:path], "bin") %>:$PATH
+<% end %>
+<% unless node[:staging_manifest][:otp_rebar] == :disabled %>
   - erlangR14B01:
       version: 'R14B01'
       description: 'Erlang R14B01'
       executable: <%= File.join(node[:erlang][:path], "bin", "erl") %>
       environment:
         path: <%= File.join(node[:erlang][:path], "bin") %>:$PATH
+<% end %>
+<% unless node[:staging_manifest][:php] == :disabled %>
   - "php":
       description: "PHP 5"
       version: "5.3"
       executable: "php"
       environment:
         path: /usr/bin:$PATH
+<% end %>
+<% unless (enabled_frameworks & %w(rack rails3 sinatra)).any? %>
   - "ruby18":
       version: "1.8.7" # FIXME change to 1.8.7-p357
       description: "Ruby 1.8.7"
@@ -63,5 +77,5 @@ runtimes:
       environment:
         path: <%= File.join(node[:ruby][:path], "bin") %>:$PATH
         bundle_gemfile:
-
+<% end %>
 # vim: filetype=yaml

@@ -14,5 +14,6 @@ node[:staging_manifest].each_pair do |framework, config|
     source "#{config}.erb"
     owner node[:deployment][:user]
     mode 0644
+    not_if { config == "disabled" }
   end
 end
