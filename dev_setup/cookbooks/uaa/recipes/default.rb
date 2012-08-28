@@ -20,9 +20,9 @@ end
 bash "Build and Deploy UAA" do
   user node[:deployment][:user]
   code <<-EOH
-    cd #{node[:cloudfoundry][:path]}/uaa; #{node[:maven][:path]}/bin/mvn clean install -U -DskipTests=true
+    cd #{node[:uaa][:path]}; #{node[:maven][:path]}/bin/mvn clean install -U -DskipTests=true
     rm -Rf #{node[:tomcat][:base]}/webapps/ROOT
-    cp -f #{node[:cloudfoundry][:path]}/uaa/uaa/target/cloudfoundry-identity-uaa-*.war #{node[:tomcat][:base]}/webapps/ROOT.war
+    cp -f #{node[:uaa][:path]}/uaa/target/cloudfoundry-identity-uaa-*.war #{node[:tomcat][:base]}/webapps/ROOT.war
   EOH
 end
 

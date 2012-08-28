@@ -9,3 +9,5 @@ default[:uaa][:batch][:password] = "batch_password"
 # uaa client registration bootstrap
 default[:uaa][:admin][:password] = "adminsecret"
 default[:uaa][:cloud_controller][:password] = "cloudcontrollersecret"
+
+default[:uaa][:path] = File.join(node[:cloudfoundry][:path], 'uaa')
