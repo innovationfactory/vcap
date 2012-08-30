@@ -108,8 +108,6 @@ when "ubuntu"
     action :create
   end
 
-  log "#{File.join(lua_path, 'bin', 'lua')} -v 2>&1 | grep #{lua_version}"
-
   bash "Install lua" do
     cwd File.join("", "tmp")
     user node[:deployment][:user]
@@ -118,7 +116,7 @@ when "ubuntu"
       cd lua-#{lua_version}
       make linux install INSTALL_TOP=#{lua_path}
     EOH
-    not_if "#{File.join(lua_path, 'bin', 'lua')} -v 2>&1 | grep #{lua_version}"
+    not_if "#{File.join(lua_path, 'bin', 'lua')} -v 2>&1 | grep 'Lua #{lua_version}'"
   end
 
   bash "Install lua json" do
@@ -133,7 +131,7 @@ when "ubuntu"
       make install
     EOH
   end
-  
+
   bash "Install nginx" do
     cwd File.join("", "tmp")
     user node[:deployment][:user]
@@ -160,7 +158,7 @@ when "ubuntu"
       make
       make install
     EOH
-    not_if "#{File.join(nginx_path, 'sbin', 'nginx')} -v 2>&1 | grep #{nginx_version}"
+    not_if "#{File.join(nginx_path, 'sbin', 'nginx')} -v 2>&1 | grep 'nginx/#{nginx_version}'"
   end
 
   template "uls.lua" do
