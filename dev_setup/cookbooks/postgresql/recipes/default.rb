@@ -1,3 +1,4 @@
+include_recipe "postgresql::libpq"
 #
 # Cookbook Name:: postgresql
 # Recipe:: default
@@ -19,7 +20,6 @@ end
 
 case node['platform']
 when "ubuntu"
-
   %w[libc6 libcomerr2 libgssapi-krb5-2 libkrb5-3 libldap-2.4-2 libpam0g libssl0.9.8 libxml2 tzdata ssl-cert locales libedit2 zlib1g].each do |pkg|
     package pkg
   end

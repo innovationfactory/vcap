@@ -9,6 +9,8 @@ module RubyInstall
       package pkg
     end
 
+    include_recipe "postgresql::libpq"
+
     ruby_tarball_path = File.join(node[:deployment][:setup_cache], "ruby-#{ruby_version}.tar.#{ruby_tarball_suffix}")
     cf_remote_file ruby_tarball_path do
       owner node[:deployment][:user]
