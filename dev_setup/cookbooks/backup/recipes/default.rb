@@ -8,7 +8,7 @@
 # generate the service_backup_ctl
 template "vcap_service_backup_ctl" do
   source "service_backup_ctl.erb"
-  path File.join(node[:cloudfoundry][:home], "vcap", "dev_setup", "bin", "vcap_service_backup_ctl")
+  path File.join(node[:cloudfoundry][:home], "control", "bin", "vcap_service_backup_ctl")
   mode "0755"
   owner node[:deployment][:user]
   group node[:deployment][:group]
