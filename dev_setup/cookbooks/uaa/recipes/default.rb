@@ -27,4 +27,4 @@ bash "Build and Deploy UAA" do
   not_if "ls -la #{File.join(node[:uaa][:path], 'uaa', 'target')} | grep `grep -m 1 \<version\> #{File.join(node[:uaa][:path], "pom.xml")} | sed -n -e 's/<version>\([0-9]\.[0-9]\.[0-9]\)<\/version>/\1/p'`.war"
 end
 
-cf_bundle_install(File.expand_path("uaa", node["cloudfoundry"]["path"]))
+cf_bundle_install(File.expand_path("uaa", node["cloudfoundry"]["home"]))

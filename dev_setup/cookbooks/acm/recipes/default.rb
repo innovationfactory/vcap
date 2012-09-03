@@ -25,4 +25,4 @@ template "acm.yml" do
   mode 0644
 end
 
-cf_bundle_install(File.expand_path("acm", node["cloudfoundry"]["path"]))
+cf_bundle_install(File.expand_path("acm", node["cloudfoundry"]["home"]))
