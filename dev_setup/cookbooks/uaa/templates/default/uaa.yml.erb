@@ -5,6 +5,8 @@ pid: /var/vcap/sys/run/uaa.pid
 mbus: nats://<%= node[:nats_server][:user] %>:<%= node[:nats_server][:password] %>@<%= node[:nats_server][:host] %>:<%= node[:nats_server][:port] %>/
 
 name: UAA
+uaa:
+  host: <%= node[:ipaddress] %>
 
 database:
   url: jdbc:postgresql://<%= node[:uaadb][:host] %>:<%= node[:uaadb][:port] %>/<%= node[:uaadb][:database] %>
