@@ -8,7 +8,7 @@ support_address: http://support.cloudfoundry.com
 # is used to choose the right ip address (think of hosts that have multiple nics
 # and IP addresses assigned to them) of the host running the cloud controller. Default
 # value of nil, should work in most cases.
-local_route: <%= node[:cloud_controller][:local_route] %>
+local_route: <%= node[:ipaddress] %>
 
 # Specifies if new users are allowed to register via VMC
 allow_registration: true
