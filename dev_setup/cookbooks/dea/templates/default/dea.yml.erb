@@ -6,7 +6,7 @@ base_dir: /var/vcap.local/dea
 # is used to choose the right ip address (think of hosts that have multiple nics
 # and IP addresses assigned to them) of the host running the DEA. Default
 # value of nil, should work in most cases.
-local_route: <%= node[:dea][:local_route] %>
+local_route: <%= node[:ipaddress] %>
 
 # Port for accessing the files of running applications
 filer_port: 12345
